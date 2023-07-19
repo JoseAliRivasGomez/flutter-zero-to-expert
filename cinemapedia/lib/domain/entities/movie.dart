@@ -8,6 +8,7 @@ class Movie {
   final String overview;
   final double popularity;
   final String posterPath;
+  final String posterPath2;
   final DateTime releaseDate;
   final String title;
   final bool video;
@@ -24,6 +25,7 @@ class Movie {
     required this.overview,
     required this.popularity,
     required this.posterPath,
+    required this.posterPath2,
     required this.releaseDate,
     required this.title,
     required this.video,
