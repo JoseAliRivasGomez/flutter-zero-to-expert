@@ -102,6 +102,7 @@ class _Slide extends StatelessWidget {
                   
                   return GestureDetector(
                     onTap: () => context.push('/movie/${movie.id}'),
+                    // onTap: () => context.push('/home/0/movie/${movie.id}'), //solo para Rutas padre/hijo stateful
                     child: FadeIn(child: child),
                   );
                 },
@@ -116,6 +117,7 @@ class _Slide extends StatelessWidget {
               width: 150,
               child: GestureDetector(
                 onTap: () => context.push('/movie/${movie.id}'),
+                // onTap: () => context.push('/home/0/movie/${movie.id}'), //solo para Rutas padre/hijo stateful
                 child: Text(
                     movie.title,
                     maxLines: 2,
@@ -130,11 +132,11 @@ class _Slide extends StatelessWidget {
             width: 150,
             child: Row(
               children: [
-                Icon(Icons.star_half_outlined, color: Colors.yellow.shade800),
+                Icon(Icons.star_half_outlined, color: Colors.yellow.shade900),
                 const SizedBox(width: 3),
                 Text('${movie.voteAverage}',
                     style: textStyles.bodyMedium
-                        ?.copyWith(color: Colors.yellow.shade800)),
+                        ?.copyWith(color: Colors.yellow.shade900)),
                 // const SizedBox(width: 10),
                 const Spacer(),
                 Text(HumanFormats.number(movie.popularity),

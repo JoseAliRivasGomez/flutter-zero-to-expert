@@ -16,11 +16,11 @@ class MovieMapper {
       popularity: themoviedb.popularity,
       posterPath: themoviedb.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${themoviedb.posterPath}'
-          : 'no-poster', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
       posterPath2: themoviedb.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${themoviedb.posterPath}'
-          : 'no-poster', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
-      releaseDate: themoviedb.releaseDate,
+          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+      releaseDate: themoviedb.releaseDate == null ? DateTime.now() : themoviedb.releaseDate!,
       title: themoviedb.title,
       video: themoviedb.video,
       voteAverage: themoviedb.voteAverage,
