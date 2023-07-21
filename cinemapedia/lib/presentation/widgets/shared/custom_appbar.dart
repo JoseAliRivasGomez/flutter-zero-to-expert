@@ -12,6 +12,7 @@ class CustomAppbar extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final colors = Theme.of(context).colorScheme;
     final titleStyle = Theme.of(context).textTheme.titleMedium;
+    
     return SafeArea(
       bottom: false,
       child: Padding(

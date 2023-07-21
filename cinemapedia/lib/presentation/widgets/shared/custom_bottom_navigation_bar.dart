@@ -14,7 +14,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
     switch (location) {
       case '/':
         return 0;
-      case '/categories':
+      case '/popular':
         return 1;
       case '/favorites':
         return 2;
@@ -30,7 +30,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
         // context.go('/home/0'); //solo para Rutas padre/hijo stateful
         break;
       case 1:
-        context.go('/categories');
+        context.go('/popular');
         // context.go('/home/1'); //solo para Rutas padre/hijo stateful
         break;
       case 2:
@@ -42,8 +42,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return BottomNavigationBar(
-      selectedItemColor: Colors.blue,
+      selectedItemColor: colors.primary,
       elevation: 0,
       currentIndex: getCurrentIndex(context),
       // currentIndex: currentIndex, //solo para Rutas padre/hijo stateful
@@ -54,12 +56,12 @@ class CustomBottomNavigationBar extends StatelessWidget {
           label: 'Inicio',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.label_outline),
-          label: 'Categorias',
+          icon: Icon(Icons.thumbs_up_down_outlined),
+          label: 'Populares',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.favorite_outline),
-          label: 'Favoritas',
+          label: 'Favoritos',
         ),
       ],
     );

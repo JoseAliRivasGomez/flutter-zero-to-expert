@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
 
   // final viewRoutes = const <Widget>[ //solo para Rutas padre/hijo stateful
   //   HomeView(),
-  //   CategoriesView(),
+  //   PopularView(),
   //   FavoritesView(),
   // ];
 
@@ -30,3 +30,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

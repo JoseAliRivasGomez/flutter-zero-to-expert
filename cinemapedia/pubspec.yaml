@@ -21,6 +21,7 @@ dependencies:
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.0.15
   riverpod_annotation: ^2.1.1
+  youtube_player_flutter: ^8.1.2
 
 dev_dependencies:
   flutter_test:
@@ -37,3 +38,4 @@ flutter:
 
   assets:
     - .env
+    - assets/loaders/

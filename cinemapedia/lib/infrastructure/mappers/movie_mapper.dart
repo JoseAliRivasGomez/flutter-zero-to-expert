@@ -16,10 +16,10 @@ class MovieMapper {
       popularity: themoviedb.popularity,
       posterPath: themoviedb.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${themoviedb.posterPath}'
-          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+          : 'https://www.movienewz.com/img/films/poster-holder.jpg', //no-poster or https://www.movienewz.com/img/films/poster-holder.jpg
       posterPath2: themoviedb.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${themoviedb.posterPath}'
-          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+          : 'https://www.movienewz.com/img/films/poster-holder.jpg', //no-poster or https://www.movienewz.com/img/films/poster-holder.jpg
       releaseDate: themoviedb.releaseDate == null ? DateTime.now() : themoviedb.releaseDate!,
       title: themoviedb.title,
       video: themoviedb.video,
@@ -39,10 +39,10 @@ class MovieMapper {
       popularity: movie.popularity,
       posterPath: movie.posterPath != ''
           ? 'https://image.tmdb.org/t/p/w500${movie.posterPath}'
-          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+          : 'https://www.movienewz.com/img/films/poster-holder.jpg', //no-poster or https://www.movienewz.com/img/films/poster-holder.jpg
       posterPath2: movie.posterPath != ''
           ? 'https://www.themoviedb.org/t/p/original${movie.posterPath}'
-          : 'https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png', //no-poster or https://sd.keepcalms.com/i-w500/keep-calm-poster-not-found.png
+          : 'https://www.movienewz.com/img/films/poster-holder.jpg', //no-poster or https://www.movienewz.com/img/films/poster-holder.jpg
       releaseDate: movie.releaseDate,
       title: movie.title,
       video: movie.video,

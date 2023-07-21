@@ -1,4 +1,3 @@
-import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
@@ -53,21 +52,29 @@ class _Slide extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Stack(
             children: [
-              Image.network(
-                movie.backdropPath,
-                fit: BoxFit.cover,
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress != null) {
-                    return const DecoratedBox(
-                        decoration: BoxDecoration(color: Colors.black12));
-                  }
-                  return GestureDetector(
-                    onTap: () => context.push('/movie/${movie.id}'),
-                    // onTap: () => context.push('/home/0/movie/${movie.id}'), //solo para Rutas padre/hijo stateful
-                    child: FadeIn(child: child),
-                  );
-                },
+              GestureDetector(
+                onTap: () => context.push('/movie/${ movie.id }'),
+                child: FadeInImage(
+                  fit: BoxFit.cover,
+                  placeholder: const AssetImage('assets/loaders/bottle-loader.gif'),
+                  image: NetworkImage(movie.backdropPath),
+                ),
               ),
+              // Image.network(
+              //   movie.backdropPath,
+              //   fit: BoxFit.cover,
+              //   loadingBuilder: (context, child, loadingProgress) {
+              //     if (loadingProgress != null) {
+              //       return const DecoratedBox(
+              //           decoration: BoxDecoration(color: Colors.black12));
+              //     }
+              //     return GestureDetector(
+              //       onTap: () => context.push('/movie/${movie.id}'),
+              //       // onTap: () => context.push('/home/0/movie/${movie.id}'), //solo para Rutas padre/hijo stateful
+              //       child: FadeIn(child: child),
+              //     );
+              //   },
+              // ),
               Container(
                   width: double.infinity,
                   alignment: Alignment.bottomCenter,
