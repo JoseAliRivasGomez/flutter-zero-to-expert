@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1054341946654",
+    "project_id": "flutter-projects-e8220",
+    "storage_bucket": "flutter-projects-e8220.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054341946654:android:2e3f261ca121ae43f2bd0f",
+        "android_client_info": {
+          "package_name": "com.joserivasgomez.notifications_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1054341946654-1jrrckhp035jmuu0f8840k8vqft5r7m7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL_UwAGUyy2WWxKHT8HN3DvnN_n3aQnos"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1054341946654-1jrrckhp035jmuu0f8840k8vqft5r7m7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
