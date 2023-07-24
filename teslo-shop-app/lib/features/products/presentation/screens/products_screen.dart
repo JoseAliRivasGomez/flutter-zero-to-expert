@@ -19,10 +19,10 @@ class ProductsScreen extends ConsumerWidget {
     return Scaffold(
       drawer: SideMenu(scaffoldKey: scaffoldKey),
       appBar: AppBar(
-        title: const Text('Products'),
-        actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded))
-        ],
+        title: const Text('Productos'),
+        // actions: [
+        //   IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded))
+        // ],
       ),
       body: const _ProductsView(),
       floatingActionButton: Visibility(
@@ -86,8 +86,9 @@ class _ProductsViewState extends ConsumerState {
           final product = productsState.products[index];
           return GestureDetector(
               onTap: () {
-                if (authState.user!.isAdmin)
+                if (authState.user!.isAdmin) {
                   context.push('/product/${product.id}');
+                }
               },
               child: ProductCard(product: product));
         },
