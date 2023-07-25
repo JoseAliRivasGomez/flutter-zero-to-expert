@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:go_router/go_router.dart';
@@ -71,6 +72,8 @@ class _ProductsViewState extends ConsumerState {
   Widget build(BuildContext context) {
     final productsState = ref.watch(productsProvider);
     final authState = ref.watch(authProvider);
+
+    FlutterNativeSplash.remove();
 
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
