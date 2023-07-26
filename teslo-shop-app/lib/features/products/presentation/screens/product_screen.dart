@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:teslo_shop/features/products/domain/domain.dart';
 import 'package:teslo_shop/features/products/presentation/providers/providers.dart';
@@ -28,30 +29,35 @@ class ProductScreen extends ConsumerWidget {
         appBar: AppBar(
           title: const Text('Producto'),
           actions: [
-            IconButton(onPressed: () async {
-              final photoPath = await CameraGalleryServiceImpl().selectPhoto();
-              if ( photoPath == null ) return;
+            IconButton(
+                onPressed: () async {
+                  final photoPath =
+                      await CameraGalleryServiceImpl().selectPhoto();
+                  if (photoPath == null) return;
 
-              ref.read( productFormProvider(productState.product!).notifier )
-                .updateProductImage(photoPath);
-    
-            }, 
-            icon: const Icon( Icons.photo_library_outlined )),
+                  ref
+                      .read(productFormProvider(productState.product!).notifier)
+                      .updateProductImage(photoPath);
+                },
+                icon: const Icon(Icons.photo_library_outlined)),
+            IconButton(
+                onPressed: () async {
+                  final photoPath =
+                      await CameraGalleryServiceImpl().takePhoto();
+                  if (photoPath == null) return;
 
-            IconButton(onPressed: () async{
-              final photoPath = await CameraGalleryServiceImpl().takePhoto();
-              if ( photoPath == null ) return;
-
-              ref.read( productFormProvider(productState.product!).notifier )
-                .updateProductImage(photoPath);
-            }, 
-            icon: const Icon( Icons.camera_alt_outlined ))
+                  ref
+                      .read(productFormProvider(productState.product!).notifier)
+                      .updateProductImage(photoPath);
+                },
+                icon: const Icon(Icons.camera_alt_outlined))
           ],
         ),
         body: productState.isLoading
             ? const FullScreenLoader()
             : _ProductView(product: productState.product!),
         floatingActionButton: FloatingActionButton(
+          key: const Key('productSaveButton'),
           onPressed: () {
             if (productState.product == null) return;
 
@@ -59,13 +65,14 @@ class ProductScreen extends ConsumerWidget {
                 ref.read(productFormProvider(productState.product!)).isPosting;
 
             if (isPostingData) return;
-            
+
             ref
                 .read(productFormProvider(productState.product!).notifier)
                 .onFormSubmit()
                 .then((value) {
               if (!value) return;
               showSnackbar(context);
+              context.push('/');
             });
           },
           child: const Icon(Icons.save_as_outlined),
@@ -118,11 +125,13 @@ class _ProductInformation extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
+        key: const Key('productInformation'),
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text('Generales'),
           const SizedBox(height: 15),
           CustomProductField(
+            key: const Key('productTitleField'),
             isTopField: true,
             label: 'Título',
             initialValue: productForm.title.value,
@@ -133,6 +142,7 @@ class _ProductInformation extends ConsumerWidget {
                 : null,
           ),
           CustomProductField(
+            key: const Key('productSlugField'),
             label: 'Slug',
             initialValue: productForm.slug.value,
             onChanged:
@@ -141,6 +151,7 @@ class _ProductInformation extends ConsumerWidget {
                 productForm.isFormPosted ? productForm.slug.errorMessage : null,
           ),
           CustomProductField(
+            key: const Key('productPriceField'),
             isBottomField: true,
             label: 'Precio',
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -155,18 +166,21 @@ class _ProductInformation extends ConsumerWidget {
           const SizedBox(height: 15),
           const Text('Extras'),
           _SizeSelector(
+            key: const Key('productSizeSelector'),
             selectedSizes: productForm.sizes,
             onSizesChanged:
                 ref.read(productFormProvider(product).notifier).onSizeChanged,
           ),
           const SizedBox(height: 5),
           _GenderSelector(
+            key: const Key('productGenderSelector'),
             selectedGender: productForm.gender,
             onGenderChanged:
                 ref.read(productFormProvider(product).notifier).onGenderChanged,
           ),
           const SizedBox(height: 15),
           CustomProductField(
+            key: const Key('productStockField'),
             isTopField: true,
             label: 'Existencias',
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -179,6 +193,7 @@ class _ProductInformation extends ConsumerWidget {
                 : null,
           ),
           CustomProductField(
+            key: const Key('productDescriptionField'),
             maxLines: 6,
             label: 'Descripción',
             keyboardType: TextInputType.multiline,
@@ -188,6 +203,7 @@ class _ProductInformation extends ConsumerWidget {
                 .onDescriptionChanged,
           ),
           CustomProductField(
+            key: const Key('productTagsField'),
             isBottomField: true,
             maxLines: 2,
             label: 'Tags (Separados por coma)',
@@ -210,6 +226,7 @@ class _SizeSelector extends StatelessWidget {
   final void Function(List<String> selectedSizes) onSizesChanged;
 
   const _SizeSelector({
+    super.key,
     required this.selectedSizes,
     required this.onSizesChanged,
   });
@@ -246,7 +263,7 @@ class _GenderSelector extends StatelessWidget {
   ];
 
   const _GenderSelector(
-      {required this.selectedGender, required this.onGenderChanged});
+      {super.key, required this.selectedGender, required this.onGenderChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -255,11 +272,11 @@ class _GenderSelector extends StatelessWidget {
         multiSelectionEnabled: false,
         showSelectedIcon: false,
         style: const ButtonStyle(visualDensity: VisualDensity.compact),
-        segments: genders.map((size) {
+        segments: genders.map((gender) {
           return ButtonSegment(
-              icon: Icon(genderIcons[genders.indexOf(size)]),
-              value: size,
-              label: Text(size, style: const TextStyle(fontSize: 12)));
+              icon: Icon(genderIcons[genders.indexOf(gender)]),
+              value: gender,
+              label: Text(gender, style: const TextStyle(fontSize: 12)));
         }).toList(),
         selected: {selectedGender},
         onSelectionChanged: (newSelection) {
@@ -277,42 +294,34 @@ class _ImageGallery extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    if ( images.isEmpty ) {
+    if (images.isEmpty) {
       return ClipRRect(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        child: Image.asset('assets/images/no-image.jpg', fit: BoxFit.cover )
-      );
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          child: Image.asset('assets/images/no-image.jpg', fit: BoxFit.cover));
     }
-
 
     return PageView(
       scrollDirection: Axis.horizontal,
-      controller: PageController(
-        viewportFraction: 0.7
-      ),
-      children: images.map((imagePath){
-          
+      controller: PageController(viewportFraction: 0.7),
+      children: images.map((imagePath) {
         late ImageProvider imageProvider;
-        if ( imagePath.startsWith('http') ) {
+        if (imagePath.startsWith('http')) {
           imageProvider = NetworkImage(imagePath);
         } else {
-          imageProvider = FileImage( File(imagePath) );
+          imageProvider = FileImage(File(imagePath));
         }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: ClipRRect(
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(20)),
               child: FadeInImage(
                 fit: BoxFit.cover,
                 image: imageProvider,
-                placeholder: const AssetImage('assets/loaders/bottle-loader.gif'),
-              )
-            ),
-          );
-
-
+                placeholder:
+                    const AssetImage('assets/loaders/bottle-loader.gif'),
+              )),
+        );
       }).toList(),
     );
   }

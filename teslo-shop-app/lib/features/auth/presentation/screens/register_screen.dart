@@ -94,6 +94,7 @@ class _RegisterForm extends ConsumerWidget {
           // const SizedBox( height: 25 ),
 
           CustomTextFormField(
+            key: const Key('signupFullNameField'),
             label: 'Nombre completo',
             keyboardType: TextInputType.name,
             onChanged: ref.read(registerFormProvider.notifier).onFullNameChanged,
@@ -104,6 +105,7 @@ class _RegisterForm extends ConsumerWidget {
           const SizedBox( height: 25 ),
 
           CustomTextFormField(
+            key: const Key('signupEmailField'),
             label: 'Correo',
             keyboardType: TextInputType.emailAddress,
             onChanged: ref.read(registerFormProvider.notifier).onEmailChanged,
@@ -114,6 +116,7 @@ class _RegisterForm extends ConsumerWidget {
           const SizedBox( height: 25 ),
 
           CustomTextFormField(
+            key: const Key('signupPasswordField'),
             label: 'Contraseña',
             obscureText: true,
             onChanged: ref.read(registerFormProvider.notifier).onPasswordChanged,
@@ -125,6 +128,7 @@ class _RegisterForm extends ConsumerWidget {
           const SizedBox( height: 25 ),
 
           CustomTextFormField(
+            key: const Key('signupConfirmPasswordField'),
             label: 'Repita la contraseña',
             obscureText: true,
             onChanged: ref.read(registerFormProvider.notifier).onPassword2Changed,
@@ -139,6 +143,7 @@ class _RegisterForm extends ConsumerWidget {
             width: double.infinity,
             height: 60,
             child: CustomFilledButton(
+              key: const Key('signupButton'),
               text: 'Crear',
               buttonColor: Colors.black,
               onPressed: registerForm.isPosting

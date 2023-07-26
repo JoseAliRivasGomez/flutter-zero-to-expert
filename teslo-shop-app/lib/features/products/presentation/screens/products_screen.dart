@@ -20,7 +20,7 @@ class ProductsScreen extends ConsumerWidget {
     return Scaffold(
       drawer: SideMenu(scaffoldKey: scaffoldKey),
       appBar: AppBar(
-        title: const Text('Productos'),
+        title: const Text('Productos', key: Key('productsScreenTitle'),),
         // actions: [
         //   IconButton(onPressed: () {}, icon: const Icon(Icons.search_rounded))
         // ],
@@ -29,6 +29,7 @@ class ProductsScreen extends ConsumerWidget {
       floatingActionButton: Visibility(
         visible: authState.user!.isAdmin,
         child: FloatingActionButton.extended(
+          key: const Key('productsNewProductButton'),
           label: const Text('Nuevo producto'),
           icon: const Icon(Icons.add),
           onPressed: () {
@@ -78,6 +79,7 @@ class _ProductsViewState extends ConsumerState {
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, bottom: 0),
       child: MasonryGridView.count(
+        key: const Key('ProductList'),
         padding: const EdgeInsets.only(bottom: 80),
         controller: scrollController,
         physics: const BouncingScrollPhysics(),
