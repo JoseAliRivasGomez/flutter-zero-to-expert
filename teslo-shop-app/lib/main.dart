@@ -5,7 +5,7 @@ import 'package:teslo_shop/config/config.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
-  enableFlutterDriverExtension();
+  //enableFlutterDriverExtension(); //! SOLO PARA PRUEBAS
   await Environment.initEnvironment();
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
